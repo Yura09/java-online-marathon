@@ -26,6 +26,7 @@ class Caffee implements DrinkReceipt, DrinkPreparation, Rating {
     public Caffee(String name, int rating) {
         this.name = name;
         this.rating = rating;
+        ingredients=new HashMap<>();
     }
 
     public Map<String, Integer> getIngredients() {
@@ -45,10 +46,9 @@ class Caffee implements DrinkReceipt, DrinkPreparation, Rating {
 
     @Override
     public Map<String, Integer> makeDrink() {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("Water", 100);
-        map.put("Arabica", 20);
-        return map;
+        addComponent("Water", 100)
+                .addComponent("Arabica", 20);
+        return getIngredients();
     }
 
     @Override
@@ -65,12 +65,10 @@ class Espresso extends Caffee {
 
     // Code
     public Map<String, Integer> makeDrink() {
-        Map<String, Integer> map = new LinkedHashMap<>();
+        super.makeDrink();
+        addComponent("Water", 50);
 
-        map.put("Water", 50);
-        map.put("Arabica", 20);
-
-        return map;
+        return getIngredients();
     }
 }
 
@@ -80,12 +78,9 @@ class Cappuccino extends Caffee {
     }
 
     public Map<String, Integer> makeDrink() {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("Water", 100);
-        map.put("Arabica", 20);
-        map.put("Milk", 50);
-
-        return map;
+       super.makeDrink();
+         addComponent("Milk", 50);
+        return getIngredients();
     }
 }
 
