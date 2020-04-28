@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
       public  String pigLatinConverter(String text) {
+         // Code
         // Code
         if (text.isEmpty()) {
             return text;
@@ -13,24 +14,26 @@ import java.util.ArrayList;
         StringBuilder stringBuilder = new StringBuilder();
         boolean isPunctuation = false;
         char punctuation = ' ';
-       
-      
+
+
         if (!Character.isLetterOrDigit(text.charAt(text.length() - 1))) {
             isPunctuation = true;
             punctuation = text.charAt(text.length() - 1);
         }
 
 
-        String[] words = text.split("[, -?.!@]+");
+        String[] words = text.split("((?<=-)|[, ?.!@]+)");
+        //System.out.println(Arrays.toString(words));
         for (String word : words) {
             if (isFirstWordVowel(word)) {
-
+                if (word.contains("-")) {
+                    stringBuilder.append(word, 0, word.length() - 1).append("hay").append("-");
+                    continue;
+                }
                 stringBuilder.append(word).append("hay").append(" ");
             } else {
                 StringBuilder con = new StringBuilder();
-                if (word.indexOf('-') != -1) {
 
-                }
                 String vowels = "aeiou";
 
                 for (int i = 0; i < word.length(); i++) {
@@ -40,6 +43,10 @@ import java.util.ArrayList;
                         continue;
                     }
                     break;
+                }
+                if (word.contains("-")) {
+                    stringBuilder.append(word, con.length(), word.length() - 1).append(con).append("ay").append("-");
+                    continue;
                 }
                 stringBuilder.append(word.substring(con.length())).append(con).append("ay").append(" ");
             }
