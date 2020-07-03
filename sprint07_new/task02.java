@@ -13,8 +13,9 @@ import java.util.Date;
 
     String date() default "today";
 }
-
+@SuppressWarnings("unchecked")
 class Util {
+    
     public static void review(String className) {
         Class myClass;
         try {
@@ -24,6 +25,10 @@ class Util {
             return;
         }
         Review annotation = (Review) myClass.getAnnotation(Review.class);
+        if (annotation == null) {
+            System.out.println("Class " + className + " isn't marked as Reviewed");
+            return;
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date;
         if (annotation.date().equals("today")) {
@@ -37,11 +42,10 @@ class Util {
             }
             date = simpleDateFormat.format(d);
         }
-        if (annotation.reviewer().isEmpty()) {
-            System.out.println("Class " + className + " isn't marked as Reviewed");
-        } else {
-            System.out.println("Class " + className + " was reviewed " + date + " by " + annotation.reviewer());
-        }
+
+
+        System.out.println("Class " + className + " was reviewed " + date + " by " + annotation.reviewer()+'.');
+
     }
 
 }
