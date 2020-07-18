@@ -33,6 +33,4 @@ public class CreateAddressServlet extends HttpServlet {
             response.sendRedirect("/addresses/list");
         }
     }
-
-
 }
